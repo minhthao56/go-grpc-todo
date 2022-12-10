@@ -6,3 +6,9 @@ protoc -I=./ todo/\*.proto --js_out=import_style=commonjs,binary:./client-react/
 
 --Envoy--
 docker run -d -v "$(pwd)"/envoy.yaml:/etc/envoy/envoy.yaml:ro --network=host envoyproxy/envoy:v1.22.0
+
+docker run -d -v "$(pwd)"/envoy.yaml:/etc/envoy/envoy.yaml:ro -p 8080:8080 -p 9901:9901 envoyproxy/envoy:v1.22.0
+
+export PATH=$PATH:/usr/local/go/bin
+export GO_PATH=~/go
+export PATH=$PATH:/$GO_PATH/bin
