@@ -1,0 +1,14 @@
+// The greeting service definition.
+
+syntax = "proto3";
+
+option go_package = "go-grpc/todo";
+
+service TodoService {
+    rpc AddToDo (TodoRequestResponse) returns (TodoRequestResponse) {}
+  }
+  message TodoRequestResponse {
+    string title = 1;
+    string description = 2;
+    bool is_completed = 3;
+  }
