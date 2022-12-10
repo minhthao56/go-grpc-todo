@@ -1,7 +1,11 @@
 import { TodoServiceClient } from "../packages/todo/TodoServiceClientPb";
 import { TodoRequestResponse } from "../packages/todo/todo_pb";
 
-const serviceTodo = new TodoServiceClient("http://localhost:9090", null, null);
+const serviceTodo = new TodoServiceClient(
+  "http://" + window.location.hostname + ":8080",
+  null,
+  null
+);
 
 export const addTodo = () => {
   const req = new TodoRequestResponse();

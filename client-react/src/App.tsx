@@ -1,18 +1,12 @@
-import { useEffect } from "react";
-
 import logo from "./logo.svg";
 import "./App.css";
 import { addTodo } from "./services/todo";
 
 function App() {
-  useEffect(() => {
-    async function fetchData() {
-      const resp = await addTodo();
-      console.log({ resp });
-    }
-
-    fetchData();
-  }, []);
+  async function fetchData() {
+    const resp = await addTodo();
+    console.log({ resp });
+  }
 
   return (
     <div className="App">
@@ -21,14 +15,7 @@ function App() {
         <p>
           Edit <code>src/App.tsx</code> and save to reload.
         </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <button onClick={fetchData}>Add</button>
       </header>
     </div>
   );
