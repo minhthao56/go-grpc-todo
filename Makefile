@@ -1,0 +1,1 @@
+build-app: docker compose up
