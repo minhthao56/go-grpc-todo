@@ -1,0 +1,27 @@
+version: '3.8'
+services:
+  server-go:
+    image: grpc-todo/server:1.0
+    build: 
+      context: .
+      dockerfile: Dockerfile.server
+    volumes:
+      - .:/server-go
+    ports:
+      - '9090:9090'
+  client-react:
+    image: grpc-todo/react:1.0
+    build: 
+      context: .
+      dockerfile: Dockerfile.react
+    volumes:
+      - .:/client-react
+    ports:
+      - '3000:3000'
+  envoy-proxy:
+    image: grpc-todo/envoy:1.0
+    build: 
+      context: .
+      dockerfile: Dockerfile.envoy
+    ports:
+      - "8080:8080"
