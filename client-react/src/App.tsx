@@ -6,6 +6,7 @@ function App() {
   async function fetchData() {
     const resp = await addTodo();
     console.log({ resp });
+    console.log({ description: resp.getDescription() });
   }
 
   return (
