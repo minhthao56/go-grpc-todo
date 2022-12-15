@@ -30,7 +30,7 @@ export PATH=$PATH:/$GO_PATH/bin
 
 `docker build -f Dockerfile.react -t grpc-todo/react:1.0 .`
 
-`docker run -d -p 8080:8080 grpc-todo/envoy:1.0`
+`docker run -d --network=host grpc-todo/envoy:1.0`
 
 `docker run -d -p 9090:9090 grpc-todo/server:1.0`
 
