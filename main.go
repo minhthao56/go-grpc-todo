@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"database/sql"
 	"flag"
 	"fmt"
 	"log"
@@ -9,6 +10,9 @@ import (
 
 	pb "go-grpc/todo"
 
+	"go-grpc/database"
+
+	_ "github.com/lib/pq"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"
 )
@@ -19,6 +23,7 @@ var (
 
 type server struct {
 	pb.UnimplementedTodoServiceServer
+	db *sql.DB
 }
 
 func (s *server) AddToDo(ctx context.Context, in *pb.TodoRequestResponse) (*pb.TodoRequestResponse, error) {
@@ -31,13 +36,17 @@ func (s *server) AddToDo(ctx context.Context, in *pb.TodoRequestResponse) (*pb.T
 
 func main() {
 
+	db := database.Init()
+
 	flag.Parse()
 	lis, err := net.Listen("tcp", fmt.Sprintf(":%d", *port))
 	if err != nil {
 		log.Fatalf("failed to listen: %v", err)
 	}
 	s := grpc.NewServer()
-	pb.RegisterTodoServiceServer(s, &server{})
+	pb.RegisterTodoServiceServer(s, &server{
+		db: db,
+	})
 
 	reflection.Register(s)
 

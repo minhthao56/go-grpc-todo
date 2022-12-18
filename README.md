@@ -35,3 +35,7 @@ export PATH=$PATH:/$GO_PATH/bin
 `docker run -d -p 9090:9090 grpc-todo/server:1.0`
 
 `docker run -d -p 3000:3000 grpc-todo/react:1.0`
+
+## Run database
+
+`docker run --name postgresql-todo -e POSTGRES_USER=postgres -e POSTGRES_PASSWORD=postgres -p 5432:5432 -v /data:/var/lib/postgresql/data -d postgres:14.6-alpine`
