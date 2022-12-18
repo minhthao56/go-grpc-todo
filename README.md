@@ -39,3 +39,5 @@ export PATH=$PATH:/$GO_PATH/bin
 ## Run database
 
 `docker run --name postgresql-todo -e POSTGRES_USER=postgres -e POSTGRES_PASSWORD=postgres -p 5432:5432 -v /data:/var/lib/postgresql/data -d postgres:14.6-alpine`
+
+`sudo -i -u postgres psql -c 'create database todo-db;'`

@@ -11,8 +11,8 @@ const (
 	host     = "localhost"
 	port     = 5432
 	user     = "postgres"
-	password = "postgres"
-	dbname   = "todo-db"
+	password = "119955"
+	dbname   = "tododb"
 )
 
 func Init() *sql.DB {
