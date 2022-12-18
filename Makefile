@@ -1,1 +1,5 @@
-build-app: docker compose up
+start-all:
+	docker compose up
+
+stop-all:
+	docker compose down
