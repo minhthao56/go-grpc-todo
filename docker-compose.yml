@@ -1,26 +1,34 @@
 version: '3.8'
 services:
-  server-go:
-    image: grpc-todo/server:1.0
-    build: 
-      context: .
-      dockerfile: Dockerfile.server
-    volumes:
-      - .:/server-go
+  db:
+    image: postgres:14.1-alpine
+    restart: always
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=119955
     ports:
-      - '9090:9090'
-  client-react:
-    image: grpc-todo/react:1.0
-    build: 
-      context: .
-      dockerfile: Dockerfile.react
-    volumes:
-      - .:/client-react
-    ports:
-      - '3000:3000'
-  envoy-proxy:
-    image: grpc-todo/envoy:1.0
-    build: 
-      context: .
-      dockerfile: Dockerfile.envoy
-    network_mode: "host"
+      - '5432:5432'
+  # server-go:
+  #   image: grpc-todo/server:1.0
+  #   build: 
+  #     context: .
+  #     dockerfile: Dockerfile.server
+  #   volumes:
+  #     - .:/server-go
+  #   ports:
+  #     - '9090:9090'
+  # client-react:
+  #   image: grpc-todo/react:1.0
+  #   build: 
+  #     context: .
+  #     dockerfile: Dockerfile.react
+  #   volumes:
+  #     - .:/client-react
+  #   ports:
+  #     - '3000:3000'
+  # envoy-proxy:
+  #   image: grpc-todo/envoy:1.0
+  #   build: 
+  #     context: .
+  #     dockerfile: Dockerfile.envoy
+  #   network_mode: "host"
