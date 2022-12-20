@@ -2,6 +2,8 @@ FROM golang:1.18-alpine
 
 WORKDIR /app
 
+ENV RUNTIME="docker"
+
 COPY go.mod ./
 
 COPY go.sum ./
@@ -9,6 +11,8 @@ COPY go.sum ./
 COPY main.go ./
 
 COPY todo ./todo
+
+COPY database ./database
 
 RUN go mod download
 

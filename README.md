@@ -41,3 +41,13 @@ export PATH=$PATH:/$GO_PATH/bin
 `docker run --name postgresql-todo -e POSTGRES_USER=postgres -e POSTGRES_PASSWORD=postgres -p 5432:5432 -v /data:/var/lib/postgresql/data -d postgres:14.6-alpine`
 
 `sudo -i -u postgres psql -c 'create database todo-db;'`
+
+```
+docker-compose down  # Stop container on current dir if there is a docker-compose.yml
+docker rm -fv $(docker ps -aq)  # Remove all containers
+sudo lsof -i -P -n | grep <port number>  # List who's using the port
+
+kill -9 <process id> (macOS) or sudo kill <process id> (Linux).
+
+sudo chown -R $USER: $HOME
+```
