@@ -19,6 +19,8 @@ services:
       dockerfile: Dockerfile.server
     ports:
       - '9090:9090'
+    volumes:
+      - .:/app
   client-react:
     image: grpc-todo/react:1.0
     build: 

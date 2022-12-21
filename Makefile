@@ -1,5 +1,5 @@
-start-all:
+up:
 	docker compose up
 
-stop-all:
+down:
 	docker compose down
