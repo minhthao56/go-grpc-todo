@@ -2,15 +2,13 @@ package main
 
 import (
 	"context"
-	"database/sql"
 	"flag"
 	"fmt"
 	"log"
 	"net"
+	"os"
 
 	pb "go-grpc/todo"
-
-	"go-grpc/database"
 
 	_ "github.com/lib/pq"
 	"google.golang.org/grpc"
@@ -23,7 +21,7 @@ var (
 
 type server struct {
 	pb.UnimplementedTodoServiceServer
-	db *sql.DB
+	//db *sql.DB
 }
 
 func (s *server) AddToDo(ctx context.Context, in *pb.TodoRequestResponse) (*pb.TodoRequestResponse, error) {
@@ -36,7 +34,10 @@ func (s *server) AddToDo(ctx context.Context, in *pb.TodoRequestResponse) (*pb.T
 
 func main() {
 
-	db := database.Init()
+	fmt.Println("USER_NAME:", os.Getenv("USER_NAME"))
+	fmt.Println("USER_PWD:", os.Getenv("USER_PWD"))
+
+	//db := database.Init()
 
 	flag.Parse()
 	lis, err := net.Listen("tcp", fmt.Sprintf(":%d", *port))
@@ -44,9 +45,10 @@ func main() {
 		log.Fatalf("failed to listen: %v", err)
 	}
 	s := grpc.NewServer()
-	pb.RegisterTodoServiceServer(s, &server{
-		db: db,
-	})
+	// pb.RegisterTodoServiceServer(s, &server{
+	// 	db: db,
+	// })
+	pb.RegisterTodoServiceServer(s, &server{})
 
 	reflection.Register(s)
 
@@ -54,4 +56,5 @@ func main() {
 	if err := s.Serve(lis); err != nil {
 		log.Fatalf("failed to serve: %v", err)
 	}
+
 }
