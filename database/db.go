@@ -3,6 +3,7 @@ package database
 import (
 	"database/sql"
 	"fmt"
+	"os"
 
 	_ "github.com/lib/pq"
 )
@@ -17,9 +18,22 @@ const (
 
 func Init() *sql.DB {
 
+	passwordPG := os.Getenv("POSTGRES_PASSWORD")
+	userPG := os.Getenv("POSTGRES_USER")
+	hostPG := os.Getenv("DB_URL")
+	dbNamePG := os.Getenv("POSTGRES_DB")
+
+	fmt.Println(passwordPG, userPG, hostPG, dbNamePG)
+	if passwordPG == "" || userPG == "" || hostPG == "" || dbNamePG == "" {
+		passwordPG = password
+		userPG = user
+		hostPG = host
+		dbNamePG = dbname
+	}
+
 	psqlInfo := fmt.Sprintf("host=%s port=%d user=%s "+
 		"password=%s dbname=%s sslmode=disable",
-		host, port, user, password, dbname)
+		hostPG, port, userPG, passwordPG, dbNamePG)
 	db, err := sql.Open("postgres", psqlInfo)
 	if err != nil {
 		panic(err)
