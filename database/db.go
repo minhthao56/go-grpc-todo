@@ -23,13 +23,22 @@ func Init() *sql.DB {
 	hostPG := os.Getenv("DB_URL")
 	dbNamePG := os.Getenv("POSTGRES_DB")
 
-	fmt.Println(passwordPG, userPG, hostPG, dbNamePG)
+	fmt.Println("passwordPG", passwordPG)
+	fmt.Println("userPG", userPG)
+	fmt.Println("hostPG", hostPG)
+	fmt.Println("dbNamePG", dbNamePG)
+
 	if passwordPG == "" || userPG == "" || hostPG == "" || dbNamePG == "" {
 		passwordPG = password
 		userPG = user
 		hostPG = host
 		dbNamePG = dbname
 	}
+
+	fmt.Println("passwordPGV2", passwordPG)
+	fmt.Println("userPGV2", userPG)
+	fmt.Println("hostPGV2", hostPG)
+	fmt.Println("dbNamePGV2", dbNamePG)
 
 	psqlInfo := fmt.Sprintf("host=%s port=%d user=%s "+
 		"password=%s dbname=%s sslmode=disable",

@@ -1,22 +1,22 @@
 version: '3.8'
 services:
   db:
-    image: postgres:14.1-alpine
-    restart: always
-    environment:
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=119955
-      - POSTGRES_DB=tododb
-      - POSTGRES_PORT=5432
+    image: grpc-todo/db:1.0
+    build: 
+      context: .
+      dockerfile: Dockerfile.database
     ports:
       - '5432:5432'
-    volumes:
-      - pgdata:/var/lib/postgresql/data 
+    healthcheck:
+      test: pg_isready -U postgres
   server-go:
     image: grpc-todo/server:1.0
     build: 
       context: .
       dockerfile: Dockerfile.server
+    depends_on: 
+      db:
+        condition: service_healthy
     ports:
       - '9090:9090'
     volumes:
@@ -26,6 +26,8 @@ services:
     build: 
       context: .
       dockerfile: Dockerfile.react
+    depends_on:
+      - server-go
     ports:
       - '3000:3000'
   envoy-proxy:
@@ -34,6 +36,3 @@ services:
       context: .
       dockerfile: Dockerfile.envoy
     network_mode: "host"
-volumes:
-  pgdata:
- 

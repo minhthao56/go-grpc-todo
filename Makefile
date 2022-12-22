@@ -1,8 +1,11 @@
+re-build:
+	docker-compose up
+
 up:
-	docker compose up
+	docker-compose up
 
 down:
-	docker compose down
+	docker-compose down --rmi all
 
 deploy-be:
 	minikube -p minikube docker-env
