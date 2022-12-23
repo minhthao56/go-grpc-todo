@@ -9,6 +9,8 @@ services:
       - '5432:5432'
     healthcheck:
       test: pg_isready -U postgres
+    volumes:
+      - ./postgres-data:/var/lib/postgresql/data
   server-go:
     image: grpc-todo/server:1.0
     build: 
