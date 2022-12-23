@@ -19,7 +19,7 @@ message TodoAddRequest {
   bool is_completed = 3;
 }
 message TodoResponse {
-  string todo_id = 1;
+  int32 todo_id = 1;
   string titel = 2;
   string content = 3;
   bool is_completed = 4;
@@ -45,7 +45,7 @@ message DeleteToDoResquest {
 }
 
 message EditTodDoResquest {
-  string todo_id = 1;
+  int32 todo_id = 1;
   string titel = 2;
   string content = 3;
   bool is_completed = 4;

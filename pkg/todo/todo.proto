@@ -1,8 +1,6 @@
-// The greeting service definition.
-
 syntax = "proto3";
 
-option go_package = "go-grpc/todo";
+option go_package = "go-grpc/pkg/todo";
 
 service TodoService {
     rpc AddToDo (TodoAddRequest) returns (TodoResponse) {}
@@ -19,8 +17,8 @@ message TodoAddRequest {
   bool is_completed = 3;
 }
 message TodoResponse {
-  string todo_id = 1;
-  string titel = 2;
+  int32 todo_id = 1;
+  string title = 2;
   string content = 3;
   bool is_completed = 4;
 }
@@ -45,8 +43,8 @@ message DeleteToDoResquest {
 }
 
 message EditTodDoResquest {
-  string todo_id = 1;
-  string titel = 2;
+  int32 todo_id = 1;
+  string title = 2;
   string content = 3;
   bool is_completed = 4;
 }

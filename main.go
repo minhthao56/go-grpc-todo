@@ -8,7 +8,7 @@ import (
 	"log"
 	"net"
 
-	pb "go-grpc/todo"
+	pb "go-grpc/pkg/todo"
 
 	"go-grpc/database"
 
@@ -26,11 +26,11 @@ type server struct {
 	db *sql.DB
 }
 
-func (s *server) AddToDo(ctx context.Context, in *pb.TodoRequestResponse) (*pb.TodoRequestResponse, error) {
+func (s *server) AddToDo(ctx context.Context, in *pb.TodoAddRequest) (*pb.TodoResponse, error) {
 
 	log.Printf("Title received : %v", in.GetTitle())
 
-	return &pb.TodoRequestResponse{Title: in.GetTitle(), Description: in.GetDescription(), IsCompleted: in.GetIsCompleted()}, nil
+	return &pb.TodoResponse{Title: in.GetTitle(), Content: in.GetContent(), IsCompleted: in.GetIsCompleted()}, nil
 
 }
 

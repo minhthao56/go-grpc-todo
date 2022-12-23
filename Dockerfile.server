@@ -8,7 +8,7 @@ COPY go.sum ./
 
 COPY main.go ./
 
-COPY todo ./todo
+COPY pkg ./pkg
 
 COPY database ./database
 
