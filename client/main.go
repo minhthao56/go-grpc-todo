@@ -5,7 +5,7 @@ import (
 	"log"
 	"time"
 
-	pb "go-grpc/todo"
+	pb "go-grpc/pkg/todo"
 
 	"google.golang.org/grpc"
 )
@@ -26,10 +26,10 @@ func main() {
 	// Contact the server and print out its response.
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second)
 	defer cancel()
-	r, err := client.AddToDo(ctx, &pb.TodoRequestResponse{
+	r, err := client.AddToDo(ctx, &pb.TodoAddRequest{
 
 		Title:       "TITLE_TEST",
-		Description: "Description_TEST",
+		Content:     "Description_TEST",
 		IsCompleted: false,
 	})
 	if err != nil {
