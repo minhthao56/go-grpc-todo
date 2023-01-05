@@ -1,14 +1,14 @@
 package main
 
 import (
-	"context"
 	"database/sql"
 	"flag"
 	"fmt"
 	"log"
 	"net"
 
-	pb "go-grpc/pkg/todo"
+	pbUser "go-grpc/pkg/user"
+	portGRPC "go-grpc/port/grpc"
 
 	"go-grpc/database"
 
@@ -21,22 +21,18 @@ var (
 	port = flag.Int("port", 9090, "The server port")
 )
 
-type server struct {
-	pb.UnimplementedTodoServiceServer
-	db *sql.DB
-}
+func setupGRPC(grpcSvc *grpc.Server, db *sql.DB) {
 
-func (s *server) AddToDo(ctx context.Context, in *pb.TodoAddRequest) (*pb.TodoResponse, error) {
-
-	log.Printf("Title received : %v", in.GetTitle())
-
-	return &pb.TodoResponse{Title: in.GetTitle(), Content: in.GetContent(), IsCompleted: in.GetIsCompleted()}, nil
+	pbUser.RegisterUserServiceServer(grpcSvc, &portGRPC.UserService{
+		DB: db,
+	})
 
 }
 
 func main() {
 
 	db := database.Init()
+	defer db.Close()
 
 	flag.Parse()
 	lis, err := net.Listen("tcp", fmt.Sprintf(":%d", *port))
@@ -44,9 +40,8 @@ func main() {
 		log.Fatalf("failed to listen: %v", err)
 	}
 	s := grpc.NewServer()
-	pb.RegisterTodoServiceServer(s, &server{
-		db: db,
-	})
+
+	setupGRPC(s, db)
 
 	reflection.Register(s)
 

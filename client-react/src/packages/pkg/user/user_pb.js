@@ -184,7 +184,6 @@ if (jspb.Message.GENERATE_TO_OBJECT) {
       obj = {
         username: jspb.Message.getFieldWithDefault(msg, 1, ""),
         password: jspb.Message.getFieldWithDefault(msg, 2, ""),
-        isCompleted: jspb.Message.getBooleanFieldWithDefault(msg, 3, false),
       };
 
     if (includeInstance) {
@@ -227,10 +226,6 @@ proto.UserAddRequest.deserializeBinaryFromReader = function (msg, reader) {
         var value = /** @type {string} */ (reader.readString());
         msg.setPassword(value);
         break;
-      case 3:
-        var value = /** @type {boolean} */ (reader.readBool());
-        msg.setIsCompleted(value);
-        break;
       default:
         reader.skipField();
         break;
@@ -266,10 +261,6 @@ proto.UserAddRequest.serializeBinaryToWriter = function (message, writer) {
   if (f.length > 0) {
     writer.writeString(2, f);
   }
-  f = message.getIsCompleted();
-  if (f) {
-    writer.writeBool(3, f);
-  }
 };
 
 /**
@@ -302,24 +293,6 @@ proto.UserAddRequest.prototype.getPassword = function () {
  */
 proto.UserAddRequest.prototype.setPassword = function (value) {
   return jspb.Message.setProto3StringField(this, 2, value);
-};
-
-/**
- * optional bool is_completed = 3;
- * @return {boolean}
- */
-proto.UserAddRequest.prototype.getIsCompleted = function () {
-  return /** @type {boolean} */ (
-    jspb.Message.getBooleanFieldWithDefault(this, 3, false)
-  );
-};
-
-/**
- * @param {boolean} value
- * @return {!proto.UserAddRequest} returns this
- */
-proto.UserAddRequest.prototype.setIsCompleted = function (value) {
-  return jspb.Message.setProto3BooleanField(this, 3, value);
 };
 
 if (jspb.Message.GENERATE_TO_OBJECT) {

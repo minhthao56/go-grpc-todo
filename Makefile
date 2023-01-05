@@ -1,6 +1,3 @@
-re-build:
-	docker-compose up
-
 up:
 	docker-compose up
 

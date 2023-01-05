@@ -9,9 +9,6 @@ export class UserAddRequest extends jspb.Message {
   getPassword(): string;
   setPassword(value: string): UserAddRequest;
 
-  getIsCompleted(): boolean;
-  setIsCompleted(value: boolean): UserAddRequest;
-
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): UserAddRequest.AsObject;
   static toObject(includeInstance: boolean, msg: UserAddRequest): UserAddRequest.AsObject;
@@ -24,7 +21,6 @@ export namespace UserAddRequest {
   export type AsObject = {
     username: string,
     password: string,
-    isCompleted: boolean,
   }
 }
 
