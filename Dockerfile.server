@@ -10,6 +10,10 @@ COPY main.go ./
 
 COPY pkg ./pkg
 
+COPY core ./core
+
+COPY port ./port
+
 COPY database ./database
 
 RUN go mod download
