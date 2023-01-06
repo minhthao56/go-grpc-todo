@@ -1,3 +1,9 @@
+## Start app on Ubuntu
+
+`install docker`
+`make up` => start app
+`make down` => stop and rm all images
+
 ## Gen----Go----
 
 `protoc --go_out=. --go_opt=paths=source_relative --go-grpc_out=. --go-grpc_opt=paths=source_relative pkg/**/*.proto`
