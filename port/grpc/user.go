@@ -46,6 +46,11 @@ func (s *UserService) AddUser(ctx context.Context, req *pb.UserAddRequest) (*pb.
 		return nil, err
 	}
 
-	return &pb.UserResponse{UserId: 1, Username: user.username}, nil
+	oneUser, err := s.DomainUserService.GetOneUserByUsername(ctx, s.DB, req.Username)
+
+	if err != nil {
+		return nil, err
+	}
+	return &pb.UserResponse{UserId: int32(oneUser.ID.Int), Username: user.username}, nil
 
 }

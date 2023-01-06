@@ -7,6 +7,7 @@ import (
 	"log"
 	"net"
 
+	"go-grpc/core/repository"
 	pbUser "go-grpc/pkg/user"
 	portGRPC "go-grpc/port/grpc"
 
@@ -22,11 +23,10 @@ var (
 )
 
 func setupGRPC(grpcSvc *grpc.Server, db *sql.DB) {
-
 	pbUser.RegisterUserServiceServer(grpcSvc, &portGRPC.UserService{
-		DB: db,
+		DB:                db,
+		DomainUserService: &repository.UserService{},
 	})
-
 }
 
 func main() {

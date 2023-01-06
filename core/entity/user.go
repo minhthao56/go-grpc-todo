@@ -17,7 +17,7 @@ type UserToDelegate struct {
 }
 
 type UserSchema struct {
-	ID        pgtype.Text `sql:"user_id,pk"`
+	ID        pgtype.Int8 `sql:"user_id,pk"`
 	UpdatedAt pgtype.Timestamptz
 	CreatedAt pgtype.Timestamptz
 	DeletedAt pgtype.Timestamptz
