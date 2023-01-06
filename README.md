@@ -1,8 +1,10 @@
 ## Start app on Ubuntu
 
-`install docker`
-`make up` => start app
-`make down` => stop and rm all images
+```
+install docker and docker compose
+make up => start app
+make down => stop and rm all images
+```
 
 ## Gen----Go----
 
