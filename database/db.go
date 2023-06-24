@@ -3,27 +3,40 @@ package database
 import (
 	"database/sql"
 	"fmt"
+	"os"
 
 	_ "github.com/lib/pq"
 )
 
 const (
-	host     = "localhost"
+	host     = "db"
 	port     = 5432
 	user     = "postgres"
-	password = "postgres"
-	dbname   = "todo-db"
+	password = "119955"
+	dbname   = "tododb"
 )
 
 func Init() *sql.DB {
+
+	passwordPG := os.Getenv("POSTGRES_PASSWORD")
+	userPG := os.Getenv("POSTGRES_USER")
+	hostPG := os.Getenv("DB_URL")
+	dbNamePG := os.Getenv("POSTGRES_DB")
+
+	if passwordPG == "" || userPG == "" || hostPG == "" || dbNamePG == "" {
+		passwordPG = password
+		userPG = user
+		hostPG = host
+		dbNamePG = dbname
+	}
+
 	psqlInfo := fmt.Sprintf("host=%s port=%d user=%s "+
 		"password=%s dbname=%s sslmode=disable",
-		host, port, user, password, dbname)
+		hostPG, port, userPG, passwordPG, dbNamePG)
 	db, err := sql.Open("postgres", psqlInfo)
 	if err != nil {
 		panic(err)
 	}
-	defer db.Close()
 
 	err = db.Ping()
 	if err != nil {

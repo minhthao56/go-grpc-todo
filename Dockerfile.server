@@ -8,7 +8,13 @@ COPY go.sum ./
 
 COPY main.go ./
 
-COPY todo ./todo
+COPY pkg ./pkg
+
+COPY core ./core
+
+COPY port ./port
+
+COPY database ./database
 
 RUN go mod download
 

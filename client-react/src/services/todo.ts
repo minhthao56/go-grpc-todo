@@ -1,5 +1,5 @@
-import { TodoServiceClient } from "../packages/todo/TodoServiceClientPb";
-import { TodoRequestResponse } from "../packages/todo/todo_pb";
+import { TodoServiceClient } from "../packages/pkg/todo/TodoServiceClientPb";
+import { TodoAddRequest } from "../packages/pkg/todo/todo_pb";
 
 const serviceTodo = new TodoServiceClient(
   "http://" + window.location.hostname + ":8080",
@@ -8,9 +8,9 @@ const serviceTodo = new TodoServiceClient(
 );
 
 export const addTodo = () => {
-  const req = new TodoRequestResponse();
+  const req = new TodoAddRequest();
   req.setTitle("Title");
-  req.setDescription("TEST");
+  req.setContent("TEST");
   req.setIsCompleted(false);
 
   return serviceTodo.addToDo(req, {});

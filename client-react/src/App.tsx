@@ -1,23 +1,47 @@
-import logo from "./logo.svg";
+import { useState } from "react";
 import "./App.css";
-import { addTodo } from "./services/todo";
+import { addUser, UserReq, UserResp } from "./services/user";
 
 function App() {
-  async function fetchData() {
-    const resp = await addTodo();
-    console.log({ resp });
-    console.log({ description: resp.getDescription() });
-  }
+  const [resp, setResp] = useState<UserResp>({ userId: 0, username: "" });
+  const [values, setValues] = useState<UserReq>({ username: "", password: "" });
+
+  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    const r = await addUser({
+      password: values.password,
+      username: values.username,
+    });
+
+    setResp(r.toObject());
+  };
 
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <button onClick={fetchData}>Add</button>
-      </header>
+      <h1>SIGN UP</h1>
+      <form onSubmit={onSubmit}>
+        <input
+          name="username"
+          value={values.username}
+          onChange={(e) => {
+            setValues((prev) => ({ ...prev, username: e.target.value }));
+          }}
+          placeholder="Username"
+        />
+        <br />
+        <input
+          name="password"
+          value={values.password}
+          onChange={(e) => {
+            setValues((prev) => ({ ...prev, password: e.target.value }));
+          }}
+          placeholder="Password"
+        />
+        <br />
+        <button type="submit">Sign Up</button>
+      </form>
+      <div>{`Resp from server: ${JSON.stringify(resp)}`}</div>
     </div>
   );
 }
