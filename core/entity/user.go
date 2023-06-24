@@ -11,7 +11,7 @@ type User interface {
 	Password() string
 }
 
-//Thỏa entity.User
+// Thỏa entity.User
 type UserToDelegate struct {
 	User
 }
@@ -47,7 +47,7 @@ func (t *UserSchema) TableName() string {
 	return "users"
 }
 
-//Thỏa entity.User
+// Thỏa entity.User
 type EmptyUser struct{}
 
 func (e *EmptyUser) Username() string {
